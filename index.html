@@ -74,55 +74,134 @@
     </style>
   </head>
   <body>
-    <script id="manus-runtime">window.__MANUS_HOST_DEV__ = false;
-(function(){"use strict";var Mr={exports:{}},Kn={};/**
- * @license React
- * react-jsx-runtime.production.js
- *
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */var $c;function um(){if($c)return Kn;$c=1;var r=Symbol.for("react.transitional.element"),i=Symbol.for("react.fragment");function c(s,d,m){var x=null;if(m!==void 0&&(x=""+m),d.key!==void 0&&(x=""+d.key),"key"in d){m={};for(var R in d)R!=="key"&&(m[R]=d[R])}else m=d;return d=m.ref,{$$typeof:r,type:s,key:x,ref:d!==void 0?d:null,props:m}}return Kn.Fragment=i,Kn.jsx=c,Kn.jsxs=c,Kn}var Fc;function dm(){return Fc||(Fc=1,Mr.exports=um()),Mr.exports}var h=dm(),Ar={exports:{}},Pn={},Rr={exports:{}},Nr={};/**
- * @license React
- * scheduler.production.js
- *
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */var Ic;function fm(){return Ic||(Ic=1,function(r){function i(A,q){var B=A.length;A.push(q);t:for(;0<B;){var bt=B-1>>>1,p=A[bt];if(0<d(p,q))A[bt]=q,A[B]=p,B=bt;else break t}}function c(A){return A.length===0?null:A[0]}function s(A){if(A.length===0)return null;var q=A[0],B=A.pop();if(B!==q){A[0]=B;t:for(var bt=0,p=A.length,O=p>>>1;bt<O;){var X=2*(bt+1)-1,G=A[X],Z=X+1,st=A[Z];if(0>d(G,B))Z<p&&0>d(st,G)?(A[bt]=st,A[Z]=B,bt=Z):(A[bt]=G,A[X]=B,bt=X);else if(Z<p&&0>d(st,B))A[bt]=st,A[Z]=B,bt=Z;else break t}}return q}function d(A,q){var B=A.sortIndex-q.sortIndex;return B!==0?B:A.id-q.id}if(r.unstable_now=void 0,typeof performance=="object"&&typeof performance.now=="function"){var m=performance;r.unstable_now=function(){return m.now()}}else{var x=Date,R=x.now();r.unstable_now=function(){return x.now()-R}}var C=[],v=[],D=1,j=null,J=3,at=!1,$=!1,nt=!1,ct=!1,ht=typeof setTimeout=="function"?setTimeout:null,St=typeof clearTimeout=="function"?clearTimeout:null,_=typeof setImmediate<"u"?setImmediate:null;function Y(A){for(var q=c(v);q!==null;){if(q.callback===null)s(v);else if(q.startTime<=A)s(v),q.sortIndex=q.expirationTime,i(C,q);else break;q=c(v)}}function H(A){if(nt=!1,Y(A),!$)if(c(C)!==null)$=!0,it||(it=!0,Bt());else{var q=c(v);q!==null&&Mt(H,q.startTime-A)}}var it=!1,rt=-1,V=5,xt=-1;function Be(){return ct?!0:!(r.unstable_now()-xt<V)}function te(){if(ct=!1,it){var A=r.unstable_now();xt=A;var q=!0;try{t:{$=!1,nt&&(nt=!1,St(rt),rt=-1),at=!0;var B=J;try{e:{for(Y(A),j=c(C);j!==null&&!(j.expirationTime>A&&Be());){var bt=j.callback;if(typeof bt=="function"){j.callback=null,J=j.priorityLevel;var p=bt(j.expirationTime<=A);if(A=r.unstable_now(),typeof p=="function"){j.callback=p,Y(A),q=!0;break e}j===c(C)&&s(C),Y(A)}else s(C);j=c(C)}if(j!==null)q=!0;else{var O=c(v);O!==null&&Mt(H,O.startTime-A),q=!1}}break t}finally{j=null,J=B,at=!1}q=void 0}}finally{q?Bt():it=!1}}}var Bt;if(typeof _=="function")Bt=function(){_(te)};else if(typeof MessageChannel<"u"){var me=new MessageChannel,Se=me.port2;me.port1.onmessage=te,Bt=function(){Se.postMessage(null)}}else Bt=function(){ht(te,0)};function Mt(A,q){rt=ht(function(){A(r.unstable_now())},q)}r.unstable_IdlePriority=5,r.unstable_ImmediatePriority=1,r.unstable_LowPriority=4,r.unstable_NormalPriority=3,r.unstable_Profiling=null,r.unstable_UserBlockingPriority=2,r.unstable_cancelCallback=function(A){A.callback=null},r.unstable_forceFrameRate=function(A){0>A||125<A?console.error("forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported"):V=0<A?Math.floor(1e3/A):5},r.unstable_getCurrentPriorityLevel=function(){return J},r.unstable_next=function(A){switch(J){case 1:case 2:case 3:var q=3;break;default:q=J}var B=J;J=q;try{return A()}finally{J=B}},r.unstable_requestPaint=function(){ct=!0},r.unstable_runWithPriority=function(A,q){switch(A){case 1:case 2:case 3:case 4:case 5:break;default:A=3}var B=J;J=A;try{return q()}finally{J=B}},r.unstable_scheduleCallback=function(A,q,B){var bt=r.unstable_now();switch(typeof B=="object"&&B!==null?(B=B.delay,B=typeof B=="number"&&0<B?bt+B:bt):B=bt,A){case 1:var p=-1;break;case 2:p=250;break;case 5:p=1073741823;break;case 4:p=1e4;break;default:p=5e3}return p=B+p,A={id:D++,callback:q,priorityLevel:A,startTime:B,expirationTime:p,sortIndex:-1},B>bt?(A.sortIndex=B,i(v,A),c(C)===null&&A===c(v)&&(nt?(St(rt),rt=-1):nt=!0,Mt(H,B-bt))):(A.sortIndex=p,i(C,A),$||at||($=!0,it||(it=!0,Bt()))),A},r.unstable_shouldYield=Be,r.unstable_wrapCallback=function(A){var q=J;return function(){var B=J;J=q;try{return A.apply(this,arguments)}finally{J=B}}}}(Nr)),Nr}var tu;function hm(){return tu||(tu=1,Rr.exports=fm()),Rr.exports}var zr={exports:{}},ut={};/**
- * @license React
- * react.production.js
- *
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */var eu;function mm(){if(eu)return ut;eu=1;var r=Symbol.for("react.transitional.element"),i=Symbol.for("react.portal"),c=Symbol.for("react.fragment"),s=Symbol.for("react.strict_mode"),d=Symbol.for("react.profiler"),m=Symbol.for("react.consumer"),x=Symbol.for("react.context"),R=Symbol.for("react.forward_ref"),C=Symbol.for("react.suspense"),v=Symbol.for("react.memo"),D=Symbol.for("react.lazy"),j=Symbol.iterator;function J(p){return p===null||typeof p!="object"?null:(p=j&&p[j]||p["@@iterator"],typeof p=="function"?p:null)}var at={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}},$=Object.assign,nt={};function ct(p,O,X){this.props=p,this.context=O,this.refs=nt,this.updater=X||at}ct.prototype.isReactComponent={},ct.prototype.setState=function(p,O){if(typeof p!="object"&&typeof p!="function"&&p!=null)throw Error("takes an object of state variables to update or a function which returns an object of state variables.");this.updater.enqueueSetState(this,p,O,"setState")},ct.prototype.forceUpdate=function(p){this.updater.enqueueForceUpdate(this,p,"forceUpdate")};function ht(){}ht.prototype=ct.prototype;function St(p,O,X){this.props=p,this.context=O,this.refs=nt,this.updater=X||at}var _=St.prototype=new ht;_.constructor=St,$(_,ct.prototype),_.isPureReactComponent=!0;var Y=Array.isArray,H={H:null,A:null,T:null,S:null,V:null},it=Object.prototype.hasOwnProperty;function rt(p,O,X,G,Z,st){return X=st.ref,{$$typeof:r,type:p,key:O,ref:X!==void 0?X:null,props:st}}function V(p,O){return rt(p.type,O,void 0,void 0,void 0,p.props)}function xt(p){return typeof p=="object"&&p!==null&&p.$$typeof===r}function Be(p){var O={"=":"=0",":":"=2"};return"$"+p.replace(/[=:]/g,function(X){return O[X]})}var te=/\/+/g;function Bt(p,O){return typeof p=="object"&&p!==null&&p.key!=null?Be(""+p.key):O.toString(36)}function me(){}function Se(p){switch(p.status){case"fulfilled":return p.value;case"rejected":throw p.reason;default:switch(typeof p.status=="string"?p.then(me,me):(p.status="pending",p.then(function(O){p.status==="pending"&&(p.status="fulfilled",p.value=O)},function(O){p.status==="pending"&&(p.status="rejected",p.reason=O)})),p.status){case"fulfilled":return p.value;case"rejected":throw p.reason}}throw p}function Mt(p,O,X,G,Z){var st=typeof p;(st==="undefined"||st==="boolean")&&(p=null);var I=!1;if(p===null)I=!0;else switch(st){case"bigint":case"string":case"number":I=!0;break;case"object":switch(p.$$typeof){case r:case i:I=!0;break;case D:return I=p._init,Mt(I(p._payload),O,X,G,Z)}}if(I)return Z=Z(p),I=G===""?"."+Bt(p,0):G,Y(Z)?(X="",I!=null&&(X=I.replace(te,"$&/")+"/"),Mt(Z,O,X,"",function(Jt){return Jt})):Z!=null&&(xt(Z)&&(Z=V(Z,X+(Z.key==null||p&&p.key===Z.key?"":(""+Z.key).replace(te,"$&/")+"/")+I)),O.push(Z)),1;I=0;var gt=G===""?".":G+":";if(Y(p))for(var Tt=0;Tt<p.length;Tt++)G=p[Tt],st=gt+Bt(G,Tt),I+=Mt(G,O,X,st,Z);else if(Tt=J(p),typeof Tt=="function")for(p=Tt.call(p),Tt=0;!(G=p.next()).done;)G=G.value,st=gt+Bt(G,Tt++),I+=Mt(G,O,X,st,Z);else if(st==="object"){if(typeof p.then=="function")return Mt(Se(p),O,X,G,Z);throw O=String(p),Error("Objects are not valid as a React child (found: "+(O==="[object Object]"?"object with keys {"+Object.keys(p).join(", ")+"}":O)+"). If you meant to render a collection of children, use an array instead.")}return I}function A(p,O,X){if(p==null)return p;var G=[],Z=0;return Mt(p,G,"","",function(st){return O.call(X,st,Z++)}),G}function q(p){if(p._status===-1){var O=p._result;O=O(),O.then(function(X){(p._status===0||p._status===-1)&&(p._status=1,p._result=X)},function(X){(p._status===0||p._status===-1)&&(p._status=2,p._result=X)}),p._status===-1&&(p._status=0,p._result=O)}if(p._status===1)return p._result.default;throw p._result}var B=typeof reportError=="function"?reportError:function(p){if(typeof window=="object"&&typeof window.ErrorEvent=="function"){var O=new window.ErrorEvent("error",{bubbles:!0,cancelable:!0,message:typeof p=="object"&&p!==null&&typeof p.message=="string"?String(p.message):String(p),error:p});if(!window.dispatchEvent(O))return}else if(typeof process=="object"&&typeof process.emit=="function"){process.emit("uncaughtException",p);return}console.error(p)};function bt(){}return ut.Children={map:A,forEach:function(p,O,X){A(p,function(){O.apply(this,arguments)},X)},count:function(p){var O=0;return A(p,function(){O++}),O},toArray:function(p){return A(p,function(O){return O})||[]},only:function(p){if(!xt(p))throw Error("React.Children.only expected to receive a single React element child.");return p}},ut.Component=ct,ut.Fragment=c,ut.Profiler=d,ut.PureComponent=St,ut.StrictMode=s,ut.Suspense=C,ut.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE=H,ut.__COMPILER_RUNTIME={__proto__:null,c:function(p){return H.H.useMemoCache(p)}},ut.cache=function(p){return function(){return p.apply(null,arguments)}},ut.cloneElement=function(p,O,X){if(p==null)throw Error("The argument must be a React element, but you passed "+p+".");var G=$({},p.props),Z=p.key,st=void 0;if(O!=null)for(I in O.ref!==void 0&&(st=void 0),O.key!==void 0&&(Z=""+O.key),O)!it.call(O,I)||I==="key"||I==="__self"||I==="__source"||I==="ref"&&O.ref===void 0||(G[I]=O[I]);var I=arguments.length-2;if(I===1)G.children=X;else if(1<I){for(var gt=Array(I),Tt=0;Tt<I;Tt++)gt[Tt]=arguments[Tt+2];G.children=gt}return rt(p.type,Z,void 0,void 0,st,G)},ut.createContext=function(p){return p={$$typeof:x,_currentValue:p,_currentValue2:p,_threadCount:0,Provider:null,Consumer:null},p.Provider=p,p.Consumer={$$typeof:m,_context:p},p},ut.createElement=function(p,O,X){var G,Z={},st=null;if(O!=null)for(G in O.key!==void 0&&(st=""+O.key),O)it.call(O,G)&&G!=="key"&&G!=="__self"&&G!=="__source"&&(Z[G]=O[G]);var I=arguments.length-2;if(I===1)Z.children=X;else if(1<I){for(var gt=Array(I),Tt=0;Tt<I;Tt++)gt[Tt]=arguments[Tt+2];Z.children=gt}if(p&&p.defaultProps)for(G in I=p.defaultProps,I)Z[G]===void 0&&(Z[G]=I[G]);return rt(p,st,void 0,void 0,null,Z)},ut.createRef=function(){return{current:null}},ut.forwardRef=function(p){return{$$typeof:R,render:p}},ut.isValidElement=xt,ut.lazy=function(p){return{$$typeof:D,_payload:{_status:-1,_result:p},_init:q}},ut.memo=function(p,O){return{$$typeof:v,type:p,compare:O===void 0?null:O}},ut.startTransition=function(p){var O=H.T,X={};H.T=X;try{var G=p(),Z=H.S;Z!==null&&Z(X,G),typeof G=="object"&&G!==null&&typeof G.then=="function"&&G.then(bt,B)}catch(st){B(st)}finally{H.T=O}},ut.unstable_useCacheRefresh=function(){return H.H.useMemoCache(p)},ut.use=function(p){return H.H.use(p)},ut.useActionState=function(p,O,X){return H.H.useActionState(p,O,X)},ut.useCallback=function(p,O){return H.H.useCallback(p,O)},ut.useContext=function(p){return H.H.useContext(p)},ut.useDebugValue=function(){},ut.useDeferredValue=function(p,O){return H.H.useDeferredValue(p,O)},ut.useEffect=function(p,O,X){var G=H.H;if(typeof X=="function")throw Error("useEffect CRUD overload is not enabled in this build of React.");return G.useEffect(p,O)},ut.useId=function(){return H.H.useId()},ut.useImperativeHandle=function(p,O,X){return H.H.useImperativeHandle(p,O,X)},ut.useInsertionEffect=function(p,O){return H.H.useInsertionEffect(p,O)},ut.useLayoutEffect=function(p,O){return H.H.useLayoutEffect(p,O)},ut.useMemo=function(p,O){return H.H.useMemo(p,O)},ut.useOptimistic=function(p,O){return H.H.useOptimistic(p,O)},ut.useReducer=function(p,O,X){return H.H.useReducer(p,O,X)},ut.useRef=function(p){return H.H.useRef(p)},ut.useState=function(p){return H.H.useState(p)},ut.useSyncExternalStore=function(p,O,X){return H.H.useSyncExternalStore(p,O,X)},ut.useTransition=function(){return H.H.useTransition()},ut.version="19.1.1",ut}var lu;function _r(){return lu||(lu=1,zr.exports=mm()),zr.exports}var kr={exports:{}},he={};/**
- * @license React
- * react-dom.production.js
- *
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */var au;function gm(){if(au)return he;au=1;var r=_r();function i(C){var v="https://react.dev/errors/"+C;if(1<arguments.length){v+="?args[]="+encodeURIComponent(arguments[1]);for(var D=2;D<arguments.length;D++)v+="&args[]="+encodeURIComponent(arguments[D])}return"Minified React error #"+C+"; visit "+v+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}function c(){}var s={d:{f:c,r:function(){throw Error(i(522))},D:c,C:c,L:c,m:c,X:c,S:c,M:c},p:0,findDOMNode:null},d=Symbol.for("react.portal");function m(C,v,D){var j=3<arguments.length&&arguments[3]!==void 0?arguments[3]:null;return{$$typeof:d,key:j==null?null:""+j,children:C,containerInfo:v,implementation:D}}var x=r.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;function R(C,v){if(C==="font")return"";if(typeof v=="string")return v==="use-credentials"?v:""}return he.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE=s,he.createPortal=function(C,v){var D=2<arguments.length&&arguments[2]!==void 0?arguments[2]:null;if(!v||v.nodeType!==1&&v.nodeType!==9&&v.nodeType!==11)throw Error(i(299));return m(C,v,null,D)},he.flushSync=function(C){var v=x.T,D=s.p;try{if(x.T=null,s.p=2,C)return C()}finally{x.T=v,s.p=D,s.d.f()}},he.preconnect=function(C,v){typeof C=="string"&&(v?(v=v.crossOrigin,v=typeof v=="string"?v==="use-credentials"?v:"":void 0):v=null,s.d.C(C,v))},he.prefetchDNS=function(C){typeof C=="string"&&s.d.D(C)},he.preinit=function(C,v){if(typeof C=="string"&&v&&typeof v.as=="string"){var D=v.as,j=R(D,v.crossOrigin),J=typeof v.integrity=="string"?v.integrity:void 0,at=typeof v.fetchPriority=="string"?v.fetchPriority:void 0;D==="style"?s.d.S(C,typeof v.precedence=="string"?v.precedence:void 0,{crossOrigin:j,integrity:J,fetchPriority:at}):D==="script"&&s.d.X(C,{crossOrigin:j,integrity:J,fetchPriority:at,nonce:typeof v.nonce=="string"?v.nonce:void 0})}}},he}var uu;function _m(){return uu||(uu=1,kr.exports=gm()),kr.exports}var Oc={exports:{}},Xc={};/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */var Uc={};(function(){Uc.getRandomValues=function(a){if(!(a instanceof Uint8Array)||a.length>65536)throw new Error("Failed to execute 'getRandomValues' on 'Crypto': parameter 1 is not of type 'Uint8Array' or the array-length is too large");for(var r=0;r<a.length;r++)a[r]=Math.floor(256*Math.random());return a}})();var Fc="__web_crypto_subtle";var Dc=typeof globalThis<"u"&&globalThis[Fc],jc=Dc||{};var Hc=typeof globalThis<"u"&&globalThis.crypto||{};var Wc=Hc.getRandomValues||Uc.getRandomValues;function Bc(a){return Wc.call(Hc,a)}var Vc="undefined"!=typeof globalThis&&globalThis.crypto&&globalThis.crypto.subtle;var Kc=class{constructor(a,r){this.algorithm=a,this.cryptoKey=r}};var qc=class{async encrypt(a,r){if(a.name!=="AES-GCM")throw new Error("AES-GCM required");const i=new Uint8Array(12);Bc(i);const o=await jc.encrypt(a,this.cryptoKey,r);return{ciphertext:o,iv:i}}async decrypt(a,r,i){if(a.name!=="AES-GCM")throw new Error("AES-GCM required");return jc.decrypt(a,this.cryptoKey,r.ciphertext)}};var Gc=class{constructor(a){this.masterKey=a}async deriveKey(){const a={name:"HKDF",hash:"SHA-256",salt:new Uint8Array,info:new Uint8Array},r=await jc.deriveKey(a,this.masterKey,"AES-GCM",!1,[" encrypt"]);return new qc(r)}};var Zc=class{constructor(a){this.masterKey=a}async deriveKey(){const a={name:"PBKDF2",hash:"SHA-256",salt:new Uint8Array(16),iterations:100},r=await jc.deriveKey(a,this.masterKey,"AES-GCM",!1,["encrypt"]);return new qc(r)}};var Yc="undefined"!=typeof globalThis&&globalThis.crypto&&globalThis.crypto.getRandomValues;function Xc(a){if(!Yc)throw new Error("crypto.getRandomValues is unavailable");return Yc.call(globalThis.crypto,a)}var Qc=class{constructor(){this.random=Xc}};var Jc=class{constructor(a){this.cipher=a}async encrypt(a){const r=new Uint8Array(a),i=await this.cipher.encrypt({name:"AES-GCM",iv:new Uint8Array(12)},r);return{ciphertext:i,iv:new Uint8Array(12)}}async decrypt(a,r){return this.cipher.decrypt({name:"AES-GCM",iv:r.iv},r.ciphertext)}};(function(a){a.exports={exports:{}}})(Oc);var e0=Oc.exports;(function(){e0.exports=_m()})();var t0=e0.exports;var n0=class{constructor(a){this.root=a,this.cache={}}get(a){if(a in this.cache)return this.cache[a];const r=this.root.querySelector(a);return this.cache[a]=r,r}};var r0=class{constructor(a){this.config=a,this.observers=[],this.query=new n0(a.selector),this.root=a.root||document}observe(){const a=this.query.get(this.config.selector);if(!a)return;const r=new MutationObserver(()=>{this.notifyObservers()});r.observe(a,{childList:!0,subtree:!0,attributes:!0}),this.observers.push(r)}notifyObservers(){this.observers.forEach(a=>{a.disconnect()}),this.observers=[]}};window.addEventListener("DOMContentLoaded",function(){setTimeout(function(){const a=document.querySelector(".canvas-wrapper");if(!a){console.log("Canvas wrapper not found");return}const r=document.querySelector(".drawing-canvas");if(!r){console.log("Canvas not found");return}const i=document.querySelector(".tool-group");if(!i){console.log("Tool group not found");return}const o=document.createElement("div");o.className="shape-tools-container";const c=[{name:"Line",icon:"📏"},{name:"Circle",icon:"⭕"},{name:"Rectangle",icon:"▭"},{name:"Triangle",icon:"△"},{name:"Heart",icon:"❤"},{name:"Text",icon:"✍"},{name:"Star",icon:"⭐"},{name:"Diamond",icon:"◇"}];c.forEach(f=>{const d=document.createElement("button");d.className="shape-tool-btn",d.innerHTML=`<div class="shape-icon">${f.icon}</div><div class="shape-label">${f.name}</div>`,d.addEventListener("click",function(){document.querySelectorAll(".shape-tool-btn").forEach(m=>m.classList.remove("active")),d.classList.add("active"),window.currentShape=f.name.toLowerCase()}),o.appendChild(d)});const f=i.parentNode;f.insertBefore(o,a);let d=!1,p={x:0,y:0},m={x:0,y:0};r.addEventListener("mousedown",function(g){if(!window.currentShape)return;d=!0;const b=r.getBoundingClientRect();p={x:g.clientX-b.left,y:g.clientY-b.top}}),r.addEventListener("mousemove",function(g){if(!d||!window.currentShape)return;const b=r.getBoundingClientRect();m={x:g.clientX-b.left,y:g.clientY-b.top}}),r.addEventListener("mouseup",function(){if(!d||!window.currentShape)return;d=!1;const g=r.getContext("2d"),b=window.currentColor||"#ff0000",y=window.currentSize||5;g.strokeStyle=b,g.fillStyle=b,g.lineWidth=y,g.lineCap="round",g.lineJoin="round";const E=p.x,_=p.y,C=m.x,S=m.y;switch(window.currentShape){case"line":g.beginPath(),g.moveTo(E,_),g.lineTo(C,S),g.stroke();break;case"circle":{const M=Math.sqrt((C-E)**2+(S-_)**2);g.beginPath(),g.arc(E,_,M,0,2*Math.PI),g.stroke();break}case"rectangle":g.strokeRect(E,_,C-E,S-_);break;case"triangle":g.beginPath(),g.moveTo(E,_),g.lineTo(C,S),g.lineTo(E-(C-E),S),g.closePath(),g.stroke();break;case"heart":{const M=Math.abs(C-E),Y=Math.abs(S-_);g.beginPath(),g.moveTo(E,_+Y/4),g.quadraticCurveTo(E-M/2,_-Y/4,E-M/2,_),g.quadraticCurveTo(E-M/2,_-Y/2,E,_-Y/4),g.quadraticCurveTo(E+M/2,_-Y/2,E+M/2,_),g.quadraticCurveTo(E+M/2,_-Y/4,E,_+Y/4),g.closePath(),g.stroke();break}case"text":{const M=Math.max(12,Math.abs(C-E)/3);g.font=`${M}px Arial`,g.fillText("Text",E,_);break}case"star":{const M=Math.sqrt((C-E)**2+(S-_)**2),Y=5;g.beginPath();for(let Q=0;Q<Y*2;Q++){const tt=Q%2===0?M:M/2,$=Math.PI/Y*Q-Math.PI/2;g.lineTo(E+tt*Math.cos($),_+tt*Math.sin($))}g.closePath(),g.stroke();break}case"diamond":g.beginPath(),g.moveTo((E+C)/2,_),g.lineTo(C,(_+S)/2),g.lineTo((E+C)/2,S),g.lineTo(E,(_+S)/2),g.closePath(),g.stroke();break}}),console.log("Shape tools initialized successfully")},1e3)});
+    <div id="root"></div>
+    <script>
+      // Shape tools initialization script
+      window.addEventListener("load", function() {
+        const initShapeTools = () => {
+          const toolGroups = document.querySelectorAll(".tool-group");
+          const paintSection = document.querySelector("section:has(.drawing-canvas)");
+          const canvas = document.querySelector(".drawing-canvas");
+          
+          if (!canvas || toolGroups.length === 0) {
+            setTimeout(initShapeTools, 500);
+            return;
+          }
+
+          // Find the tool group that's in the paint section
+          let correctToolGroup = null;
+          toolGroups.forEach((tg) => {
+            if (paintSection && paintSection.contains(tg)) {
+              correctToolGroup = tg;
+            }
+          });
+
+          if (!correctToolGroup || document.querySelector('.shape-tools-container')) return;
+
+          const container = document.createElement("div");
+          container.className = "shape-tools-container";
+          const shapes = [
+            {name:"Line",icon:"📏"},
+            {name:"Circle",icon:"⭕"},
+            {name:"Rectangle",icon:"▭"},
+            {name:"Triangle",icon:"△"},
+            {name:"Heart",icon:"❤"},
+            {name:"Text",icon:"✍"},
+            {name:"Star",icon:"⭐"},
+            {name:"Diamond",icon:"◇"}
+          ];
+
+          shapes.forEach(s => {
+            const btn = document.createElement("button");
+            btn.className = "shape-tool-btn";
+            btn.innerHTML = `<div class="shape-icon">${s.icon}</div><div class="shape-label">${s.name}</div>`;
+            btn.addEventListener("click", function() {
+              document.querySelectorAll(".shape-tool-btn").forEach(b => b.classList.remove("active"));
+              btn.classList.add("active");
+              window.currentShape = s.name.toLowerCase();
+            });
+            container.appendChild(btn);
+          });
+
+          correctToolGroup.parentElement.insertBefore(container, correctToolGroup.nextElementSibling);
+
+          let isDrawing = false;
+          let startPos = {x: 0, y: 0};
+          let currentPos = {x: 0, y: 0};
+
+          canvas.addEventListener("mousedown", function(e) {
+            if (!window.currentShape) return;
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            startPos = {x: e.clientX - rect.left, y: e.clientY - rect.top};
+          });
+
+          canvas.addEventListener("mousemove", function(e) {
+            if (!isDrawing || !window.currentShape) return;
+            const rect = canvas.getBoundingClientRect();
+            currentPos = {x: e.clientX - rect.left, y: e.clientY - rect.top};
+          });
+
+          canvas.addEventListener("mouseup", function() {
+            if (!isDrawing || !window.currentShape) return;
+            isDrawing = false;
+            const ctx = canvas.getContext("2d");
+            const color = window.currentColor || "#ff0000";
+            const size = window.currentSize || 5;
+            
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = size;
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+
+            const x1 = startPos.x, y1 = startPos.y, x2 = currentPos.x, y2 = currentPos.y;
+
+            switch(window.currentShape) {
+              case "line":
+                ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+                break;
+              case "circle":
+                const r = Math.sqrt((x2-x1)**2 + (y2-y1)**2);
+                ctx.beginPath(); ctx.arc(x1, y1, r, 0, 2*Math.PI); ctx.stroke();
+                break;
+              case "rectangle":
+                ctx.strokeRect(x1, y1, x2-x1, y2-y1);
+                break;
+              case "triangle":
+                ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.lineTo(x1-(x2-x1), y2); ctx.closePath(); ctx.stroke();
+                break;
+              case "heart":
+                const w = Math.abs(x2-x1), h = Math.abs(y2-y1);
+                ctx.beginPath(); ctx.moveTo(x1, y1+h/4);
+                ctx.quadraticCurveTo(x1-w/2, y1-h/4, x1-w/2, y1);
+                ctx.quadraticCurveTo(x1-w/2, y1-h/2, x1, y1-h/4);
+                ctx.quadraticCurveTo(x1+w/2, y1-h/2, x1+w/2, y1);
+                ctx.quadraticCurveTo(x1+w/2, y1-h/4, x1, y1+h/4);
+                ctx.closePath(); ctx.stroke();
+                break;
+              case "text":
+                const fs = Math.max(12, Math.abs(x2-x1)/3);
+                ctx.font = `${fs}px Arial`; ctx.fillText("Text", x1, y1);
+                break;
+              case "star":
+                const sr = Math.sqrt((x2-x1)**2 + (y2-y1)**2);
+                ctx.beginPath();
+                for(let i=0; i<10; i++) {
+                  const rad = i%2===0 ? sr : sr/2;
+                  const ang = Math.PI/5*i - Math.PI/2;
+                  ctx.lineTo(x1+rad*Math.cos(ang), y1+rad*Math.sin(ang));
+                }
+                ctx.closePath(); ctx.stroke();
+                break;
+              case "diamond":
+                ctx.beginPath(); ctx.moveTo((x1+x2)/2, y1); ctx.lineTo(x2, (y1+y2)/2); ctx.lineTo((x1+x2)/2, y2); ctx.lineTo(x1, (y1+y2)/2); ctx.closePath(); ctx.stroke();
+                break;
+            }
+          });
+        };
+        initShapeTools();
+      });
     </script>
   </body>
 </html>
