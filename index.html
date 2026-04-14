@@ -176,9 +176,17 @@ Error generating stack: `+l.message+`
             btn.className = "shape-tool-btn";
             btn.innerHTML = `<div class="shape-icon">${s.icon}</div><div class="shape-label">${s.name}</div>`;
             btn.addEventListener("click", function() {
-              document.querySelectorAll(".shape-tool-btn").forEach(b => b.classList.remove("active"));
-              btn.classList.add("active");
-              window.currentShape = s.name.toLowerCase();
+              const shapeName = s.name.toLowerCase();
+              if (window.currentShape === shapeName) {
+                // Toggle off if already selected
+                document.querySelectorAll(".shape-tool-btn").forEach(b => b.classList.remove("active"));
+                window.currentShape = null;
+              } else {
+                // Select new shape
+                document.querySelectorAll(".shape-tool-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                window.currentShape = shapeName;
+              }
             });
             container.appendChild(btn);
           });
@@ -216,51 +224,94 @@ Error generating stack: `+l.message+`
             ctx.lineJoin = "round";
 
             const x1 = startPos.x, y1 = startPos.y, x2 = currentPos.x, y2 = currentPos.y;
+            const dx = x2 - x1, dy = y2 - y1;
 
             switch(window.currentShape) {
               case "line":
                 ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
                 break;
               case "circle":
-                const r = Math.sqrt((x2-x1)**2 + (y2-y1)**2);
+                const r = Math.sqrt(dx*dx + dy*dy);
                 ctx.beginPath(); ctx.arc(x1, y1, r, 0, 2*Math.PI); ctx.stroke();
                 break;
               case "rectangle":
-                ctx.strokeRect(x1, y1, x2-x1, y2-y1);
+                ctx.strokeRect(x1, y1, dx, dy);
                 break;
               case "triangle":
-                ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.lineTo(x1-(x2-x1), y2); ctx.closePath(); ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.lineTo(x1 - dx, y2);
+                ctx.closePath();
+                ctx.stroke();
                 break;
               case "heart":
-                const w = Math.abs(x2-x1), h = Math.abs(y2-y1);
-                ctx.beginPath(); ctx.moveTo(x1, y1+h/4);
-                ctx.quadraticCurveTo(x1-w/2, y1-h/4, x1-w/2, y1);
-                ctx.quadraticCurveTo(x1-w/2, y1-h/2, x1, y1-h/4);
-                ctx.quadraticCurveTo(x1+w/2, y1-h/2, x1+w/2, y1);
-                ctx.quadraticCurveTo(x1+w/2, y1-h/4, x1, y1+h/4);
-                ctx.closePath(); ctx.stroke();
+                const w = Math.abs(dx), h = Math.abs(dy);
+                const hx = x1, hy = y1;
+                ctx.beginPath();
+                ctx.moveTo(hx, hy + h * 0.4);
+                ctx.bezierCurveTo(hx - w * 0.5, hy - h * 0.1, hx - w * 0.5, hy + h * 0.2, hx, hy + h * 0.4);
+                ctx.bezierCurveTo(hx + w * 0.5, hy + h * 0.2, hx + w * 0.5, hy - h * 0.1, hx, hy + h * 0.4);
+                ctx.lineTo(hx, hy + h);
+                ctx.closePath();
+                ctx.stroke();
                 break;
               case "text":
-                const fs = Math.max(12, Math.abs(x2-x1)/3);
-                ctx.font = `${fs}px Arial`; ctx.fillText("Text", x1, y1);
+                const textInput = prompt("Enter text:", "Text");
+                if (textInput) {
+                  const fs = Math.max(16, Math.abs(dx) / 3);
+                  ctx.font = `bold ${fs}px Arial`;
+                  ctx.fillText(textInput, x1, y1 + fs);
+                }
                 break;
               case "star":
-                const sr = Math.sqrt((x2-x1)**2 + (y2-y1)**2);
+                const sr = Math.sqrt(dx*dx + dy*dy);
                 ctx.beginPath();
                 for(let i=0; i<10; i++) {
                   const rad = i%2===0 ? sr : sr/2;
                   const ang = Math.PI/5*i - Math.PI/2;
                   ctx.lineTo(x1+rad*Math.cos(ang), y1+rad*Math.sin(ang));
                 }
-                ctx.closePath(); ctx.stroke();
+                ctx.closePath();
+                ctx.stroke();
                 break;
               case "diamond":
-                ctx.beginPath(); ctx.moveTo((x1+x2)/2, y1); ctx.lineTo(x2, (y1+y2)/2); ctx.lineTo((x1+x2)/2, y2); ctx.lineTo(x1, (y1+y2)/2); ctx.closePath(); ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x1 + dx/2, y1);
+                ctx.lineTo(x2, y1 + dy/2);
+                ctx.lineTo(x1 + dx/2, y2);
+                ctx.lineTo(x1, y1 + dy/2);
+                ctx.closePath();
+                ctx.stroke();
                 break;
             }
           });
+          
+          // Intercept mousedown on canvas to prevent normal drawing when shape tool is active
+          const originalMouseDownHandler = canvas.onmousedown;
+          canvas.addEventListener("mousedown", function(e) {
+            if (window.currentShape) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          }, true);
         };
         initShapeTools();
+        
+        // Override the drawing behavior to prevent normal drawing when shape tool is active
+        setTimeout(() => {
+          const canvas = document.querySelector(".drawing-canvas");
+          if (canvas) {
+            const originalOnMouseDown = canvas.onmousedown;
+            canvas.onmousedown = function(e) {
+              if (window.currentShape) {
+                // Shape tool is active, don't call original handler
+                return false;
+              }
+              if (originalOnMouseDown) return originalOnMouseDown.call(this, e);
+            };
+          }
+        }, 2000);
       });
     </script>
   </body>
