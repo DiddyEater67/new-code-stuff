@@ -175,15 +175,19 @@ Error generating stack: `+l.message+`
             const btn = document.createElement("button");
             btn.className = "shape-tool-btn";
             btn.innerHTML = `<div class="shape-icon">${s.icon}</div><div class="shape-label">${s.name}</div>`;
-            btn.addEventListener("click", function() {
+            btn.addEventListener("click", function(e) {
+              e.stopPropagation();
               const shapeName = s.name.toLowerCase();
-              if (window.currentShape === shapeName) {
+              const isCurrentlyActive = btn.classList.contains("active");
+              
+              // Remove active class from all buttons
+              document.querySelectorAll(".shape-tool-btn").forEach(b => b.classList.remove("active"));
+              
+              if (isCurrentlyActive) {
                 // Toggle off if already selected
-                document.querySelectorAll(".shape-tool-btn").forEach(b => b.classList.remove("active"));
                 window.currentShape = null;
               } else {
                 // Select new shape
-                document.querySelectorAll(".shape-tool-btn").forEach(b => b.classList.remove("active"));
                 btn.classList.add("active");
                 window.currentShape = shapeName;
               }
