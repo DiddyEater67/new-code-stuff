@@ -291,21 +291,13 @@ Error generating stack: `+l.message+`
             }
           });
           
-          // Intercept mousedown on canvas to prevent normal drawing when shape tool is active
-          const originalMouseDownHandler = canvas.onmousedown;
-          canvas.addEventListener("mousedown", function(e) {
-            if (window.currentShape) {
-              e.preventDefault();
-              e.stopPropagation();
-            }
-          }, true);
         };
         initShapeTools();
         
         // Override the drawing behavior to prevent normal drawing when shape tool is active
         setTimeout(() => {
           const canvas = document.querySelector(".drawing-canvas");
-          if (canvas) {
+          if (canvas && canvas.onmousedown) {
             const originalOnMouseDown = canvas.onmousedown;
             canvas.onmousedown = function(e) {
               if (window.currentShape) {
