@@ -10,8 +10,8 @@
     <script type="module" crossorigin src="./assets/index-ULpzZwQY.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DHEj983I.css">
     <style>
-      .undo-redo-buttons { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-      .undo-redo-buttons button { padding: 0.5rem 1rem; background: #1e3a8a; border: 1px solid #3b82f6; color: #e0e7ff; cursor: pointer; border-radius: 4px; }
+      .undo-redo-buttons { display: flex; gap: 0.25rem; }
+      .undo-redo-buttons button { padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #1e3a8a; border: 1px solid #3b82f6; color: #e0e7ff; cursor: pointer; border-radius: 3px; }
       .undo-redo-buttons button:hover { background: #3b82f6; }
       .undo-redo-buttons button:disabled { opacity: 0.5; cursor: not-allowed; }
     </style>
@@ -86,109 +86,69 @@ Error generating stack: `+l.message+`
         const canvas = document.querySelector('.drawing-canvas');
         if (!canvas) return;
         
-        let history = [canvas.toDataURL()];
-        let historyStep = 0;
+        let history = [];
+        let historyStep = -1;
+        let isRestoring = false;
         
         const saveState = () => {
+          if (isRestoring) return;
           historyStep++;
           if (historyStep < history.length) history.length = historyStep;
-          history.push(canvas.toDataURL());
+          history.push(canvas.toDataURL('image/png'));
           updateButtons();
         };
         
         const undo = () => {
           if (historyStep > 0) {
             historyStep--;
-            const img = new Image();
-            img.src = history[historyStep];
-            img.onload = () => {
-              const ctx = canvas.getContext('2d');
-              ctx.clearRect(0, 0, canvas.width, canvas.height);
-              ctx.drawImage(img, 0, 0);
-              updateButtons();
-            };
+            restoreState();
           }
         };
         
         const redo = () => {
           if (historyStep < history.length - 1) {
             historyStep++;
+            restoreState();
+          }
+        };
+        
+        const restoreState = () => {
+          if (historyStep >= 0 && historyStep < history.length) {
+            isRestoring = true;
             const img = new Image();
-            img.src = history[historyStep];
             img.onload = () => {
               const ctx = canvas.getContext('2d');
               ctx.clearRect(0, 0, canvas.width, canvas.height);
               ctx.drawImage(img, 0, 0);
+              isRestoring = false;
               updateButtons();
             };
+            img.src = history[historyStep];
           }
         };
         
         const updateButtons = () => {
           const undoBtn = document.getElementById('undo-btn');
           const redoBtn = document.getElementById('redo-btn');
-          if (undoBtn) undoBtn.disabled = historyStep === 0;
-          if (redoBtn) redoBtn.disabled = historyStep === history.length - 1;
+          if (undoBtn) undoBtn.disabled = historyStep <= 0;
+          if (redoBtn) redoBtn.disabled = historyStep >= history.length - 1;
         };
         
-        // Intercept canvas drawing to save state
-        const originalGetContext = canvas.getContext.bind(canvas);
-        const ctx = originalGetContext('2d');
-        const originalStroke = ctx.stroke.bind(ctx);
-        const originalFill = ctx.fill.bind(ctx);
-        const originalFillRect = ctx.fillRect.bind(ctx);
-        const originalClearRect = ctx.clearRect.bind(ctx);
-        const originalFillText = ctx.fillText.bind(ctx);
+        canvas.addEventListener('mouseup', () => {
+          setTimeout(saveState, 50);
+        });
         
-        let drawingInProgress = false;
-        const startDrawing = () => { drawingInProgress = true; };
-        const endDrawing = () => {
-          if (drawingInProgress) {
-            drawingInProgress = false;
-            setTimeout(saveState, 10);
-          }
-        };
-        
-        ctx.stroke = function(...args) {
-          originalStroke.apply(this, args);
-          endDrawing();
-        };
-        ctx.fill = function(...args) {
-          originalFill.apply(this, args);
-          endDrawing();
-        };
-        ctx.fillRect = function(...args) {
-          originalFillRect.apply(this, args);
-          endDrawing();
-        };
-        ctx.clearRect = function(...args) {
-          originalClearRect.apply(this, args);
-          endDrawing();
-        };
-        ctx.fillText = function(...args) {
-          originalFillText.apply(this, args);
-          endDrawing();
-        };
-        
-        canvas.addEventListener('mousedown', startDrawing);
-        canvas.addEventListener('mouseup', endDrawing);
-        
-        // Add undo/redo buttons
         const toolGroup = document.querySelector('.tool-group');
         if (toolGroup) {
           const btnContainer = document.createElement('div');
           btnContainer.className = 'undo-redo-buttons';
-          btnContainer.innerHTML = `
-            <button id="undo-btn" title="Undo (Ctrl+Z)">↶ Undo</button>
-            <button id="redo-btn" title="Redo (Ctrl+Y)">↷ Redo</button>
-          `;
-          toolGroup.parentElement.insertBefore(btnContainer, toolGroup.nextElementSibling);
+          btnContainer.innerHTML = `<button id="undo-btn" title="Undo (Ctrl+Z)">↶</button><button id="redo-btn" title="Redo (Ctrl+Y)">↷</button>`;
+          toolGroup.appendChild(btnContainer);
           
           document.getElementById('undo-btn').addEventListener('click', undo);
           document.getElementById('redo-btn').addEventListener('click', redo);
         }
         
-        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
           if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
             e.preventDefault();
@@ -199,6 +159,7 @@ Error generating stack: `+l.message+`
           }
         });
         
+        saveState();
         updateButtons();
       });
     </script>
